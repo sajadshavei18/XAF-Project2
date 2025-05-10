@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="MainDemoApp.Module.Department" ImageName="BO_Department" />
+    <Class Name="MainDemoApp.Module.Position" ImageName="BO_Position" />
+  </BOModel>
+</Application>

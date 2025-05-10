@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XAF_Project2" PreferredLanguage="(User language)">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ClearTasksAction" ToolTip="Clear the Current Contact task!" Caption="Clear Tasks" />
+      <Action Id="Task.MarkCompleted" ValidationContexts="MarkCompleted" />
+    </Actions>
+    <ActionToContainerMapping>
+      <ActionContainer Id="RecordEdit">
+        <ActionLink ActionId="ClearTasksAction" IsNewNode="True" />
+      </ActionContainer>
+      <ActionContainer Id="View">
+        <ActionLink ActionId="ClearTasksAction" Removed="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.PhoneNumber">
+      <OwnMembers>
+        <Member Name="Number" EditMask="(000)000-0000" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.Persistent.BaseImpl.Task">
+      <OwnMembers>
+        <Member Name="DueDate" DisplayFormat="{0:D}" />
+        <Member Name="PercentCompleted" DisplayFormat="{0:N0}%" />
+        <Member Name="StartDate" DisplayFormat="{0:D}" />
+        <Member Name="Subject" RowCount="2" Size="200" />
+      </OwnMembers>
+    </Class>
+    <Class Name="XAF_Project2.Module.BusinessObjects.Payment">
+      <OwnMembers>
+        <Member Name="Rate" ImmediatePostData="True" />
+      </OwnMembers>
+    </Class>
+    <Class Name="XAF_Project2.Module.Contact" ObjectCaptionFormat="{0:FullName} from the {0:Department}" ImageName="BO_Employee">
+      <OwnMembers>
+        <Member Name="Position" DataSourceProperty="Department.Positions" DataSourcePropertyIsNullMode="SelectAll" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <CreatableItems>
+    <CreatableItem ClassName="DevExpress.Persistent.BaseImpl.Event" Caption="Scheduler Event" ImageName="BO_Scheduler" IsNewNode="True" />
+    <CreatableItem ClassName="XAF_Project2.Module.BusinessObjects.DemoTask" ImageName="BO_Contract" />
+  </CreatableItems>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="DemoTask_ListView" Caption="Task" ViewId="DemoTask_ListView" />
+          <Item Id="Note" Caption="Note" ImageName="BO_Note" ViewId="Note_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="19.1.3.0" IsNewNode="True" />
+  </SchemaModules>
+  <Validation>
+    <Rules>
+      <RuleCriteria Id="TaskNotIsStarted" TargetContextIDs="MarkComplete" Criteria="status != 'NotStarted'" TargetType="XAF_Project2.Module.BusinessObjects.DemoTask" CustomMessageTemplate="cannot set !" IsNewNode="True" />
+    </Rules>
+  </Validation>
+  <Views>
+    <DetailView Id="Contact_DetailView">
+      <Items>
+        <PropertyEditor Id="Department.Office" DataSourcePropertyIsNullMode="SelectNothing" PropertyName="Department.Office" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Contact">
+              <LayoutGroup Id="Contact_col2">
+                <LayoutItem Id="Department.Office" ViewItem="Department.Office" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Contact_ListView">
+      <Columns>
+        <ColumnInfo Id="Email" Index="4" />
+        <ColumnInfo Id="TitleOfCourtesy" Index="5" />
+        <ColumnInfo Id="Anniversary" Index="6" />
+        <ColumnInfo Id="Department" Index="7" />
+        <ColumnInfo Id="Position" Index="8" />
+        <ColumnInfo Id="Manager" Index="9" />
+      </Columns>
+      <Filters CurrentFilterId="">
+        <Filter Id="Developers" Criteria="Position.Title = ‘Developer’" Caption="Developers" IsNewNode="True" />
+        <Filter Id="Development Department Contacts" Caption="Development Department Contacts" Criteria="[Department.Title] = ‘Development Department’" IsNewNode="True" />
+      </Filters>
+    </ListView>
+    <ListView Id="Contact_ListView_AllColumns" ClassName="XAF_Project2.Module.Contact" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Address1" PropertyName="Address1" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Address2" PropertyName="Address2" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Birthday" PropertyName="Birthday" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="DisplayName" PropertyName="DisplayName" Index="-1" Width="400" IsNewNode="True" />
+        <ColumnInfo Id="Email" PropertyName="Email" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="FirstName" PropertyName="FirstName" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="LastName" PropertyName="LastName" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="MiddleName" PropertyName="MiddleName" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Notes" PropertyName="Notes" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Oid" PropertyName="Oid" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Photo" PropertyName="Photo" Index="-1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="FullName" PropertyName="FullName" Index="0" Width="400" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+        <ColumnInfo Id="WebPageAddress" PropertyName="WebPageAddress" Index="1" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="NickName" PropertyName="NickName" Index="2" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="SpouseName" PropertyName="SpouseName" Index="3" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="TitleOfCourtesy" PropertyName="TitleOfCourtesy" Index="4" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Anniversary" PropertyName="Anniversary" Index="5" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Department" Index="6" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Position" PropertyName="Position" Index="7" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Manager" PropertyName="Manager" Index="8" Width="70" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="Contact_ListView_Varied" ClassName="XAF_Project2.Module.Contact" IsNewNode="True" />
+    <ListView Id="DemoTask_Contacts_ListView" ClassName="DevExpress.Persistent.BaseImpl.Task" DetailViewID="PersistentBase_DetailView" />
+    <ListView Id="DemoTask_ListView" NewItemRowPosition="Top" AllowEdit="True" PreviewColumnName="Description" />
+    <ListView Id="Department_ListView" MasterDetailMode="ListViewAndDetailView" />
+  </Views>
+</Application>
